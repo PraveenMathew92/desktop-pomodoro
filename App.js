@@ -1,22 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
-import  { useEffect, useState } from 'react';
+import  { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 const MILLLISECONDS_IN_ONE_SECOND = 1000
+const NUMBER_OF_SECONDS_IN_ONE_MINUTE = 60
 
 const incrementTimer = (time) => {
-  if((time.seconds + 1) == 60) {
-    return {minutes: time.minutes + 1, seconds: 0};
+  const nextSecond = time.seconds + 1;
+  if(nextSecond >= NUMBER_OF_SECONDS_IN_ONE_MINUTE) {
+    const minutes = Math.floor(nextSecond/NUMBER_OF_SECONDS_IN_ONE_MINUTE) + time.minutes;
+    const seconds = (nextSecond)%NUMBER_OF_SECONDS_IN_ONE_MINUTE
+    return {minutes, seconds};
   }
-  return {minutes: time.minutes, seconds: time.seconds + 1};
+
+  return {minutes: time.minutes, seconds: nextSecond};
 }
 
 export default function App() {
-  const [time, setTime] = useState({minutes: 0, seconds: 0});
-  useEffect(() => {
-      const interval = setInterval(() => setTime(incrementTimer(time)), MILLLISECONDS_IN_ONE_SECOND);
-      return () => clearInterval(interval);
-  }, [time])
+  const [time, setTime] = useState({minutes: 0, seconds: 55});
+  setTimeout(() => setTime(incrementTimer(time)), MILLLISECONDS_IN_ONE_SECOND)
 
   return (
     <View style={styles.container}>
