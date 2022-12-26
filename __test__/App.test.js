@@ -1,10 +1,16 @@
 import App from '../App';
-import { render } from '@testing-library/react-native';
+import { render, screen } from '@testing-library/react-native';
 import "@testing-library/jest-native/extend-expect";
 
 
 test('should render the start button', () => {
-    const { getByRole } = render(<App />);
-    const button = getByRole('button', { name: "START" });
+    render(<App />);
+    const button = screen.getByRole('button', { name: "START" });
     expect(button).toBeVisible();
+});
+
+test('should not render the timer by default', () => {
+    render(<App />);
+    const timer = screen.queryByTestId('timer');
+    expect(timer).toBeNull();
 });
