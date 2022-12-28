@@ -1,5 +1,5 @@
 import App from '../App';
-import { render, screen } from '@testing-library/react-native';
+import { fireEvent, render, screen } from '@testing-library/react-native';
 import "@testing-library/jest-native/extend-expect";
 
 
@@ -13,4 +13,13 @@ test('should not render the timer by default', () => {
     render(<App />);
     const timer = screen.queryByTestId('timer');
     expect(timer).toBeNull();
+});
+
+test('should render the timer after start button click', () => {
+    render(<App />);
+    const button = screen.getByRole('button', { name: "START" });
+    
+    fireEvent.press(button);
+    const timer = screen.queryByTestId('timer');
+    expect(timer).toBeVisible();
 });
