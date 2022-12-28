@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { useState } from 'react';
 import Timer from './src/Timer';
+import TimerStartStopButton from './src/TimerStartStopButton';
 
 
 export default function App() {
@@ -12,7 +13,7 @@ export default function App() {
     <View style={styles.container}>
       { !disabled && <Timer />}
       <View style={styles.button}>
-        <Button title='START' color='gray' onPress={() => setDisabled(false)}/>
+        <TimerStartStopButton disabled={disabled} onPress={() => setDisabled(!disabled)}/>
       </View>
       <StatusBar style="auto" />
     </View>

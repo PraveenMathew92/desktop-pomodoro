@@ -15,7 +15,7 @@ const incrementTimer = (time) => {
   return {minutes: time.minutes, seconds: nextSecond};
 }
 
-function Timer () {
+export default function Timer () {
     const [time, setTime] = useState({minutes: 0, seconds: 0});
     setTimeout(() => setTime(incrementTimer(time)), MILLLISECONDS_IN_ONE_SECOND)
 
@@ -23,5 +23,3 @@ function Timer () {
         <Text testID="timer">{time.minutes.toString().padStart(2, '0')}:{time.seconds.toString().padStart(2, '0')}</Text>
     );
 }
-
-export default Timer;
